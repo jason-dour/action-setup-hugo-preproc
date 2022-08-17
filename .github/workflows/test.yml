@@ -32,7 +32,7 @@ jobs:
     - name: Verify hugo-preproc version installed
       run: |
         export HUGOPREPROC_VERSION=$( hugo-preproc --version | awk '{print "v" $3}' )
-        if [ $HUGOPREPROC_VERSION != ${{ matrix.hugo-preproc-version }} ]; then
+        if [ "$HUGOPREPROC_VERSION" != ${{ matrix.hugo-preproc-version }} ]; then
           echo "error: hugo-preproc version ${{ matrix.hugo-preproc-version }} expected; got $HUGOPREPROC_VERSION"
           exit 1
         fi
