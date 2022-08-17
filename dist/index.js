@@ -78,7 +78,7 @@ async function setup() {
     if (myPlat === "win32") {
       exeName = path.join(process.env.RUNNER_TEMP,"hugo-preproc.exe");
     } else {
-      exeName = path.join(process.env.RUNNER_TEMP,"hugo-preproc.");
+      exeName = path.join(process.env.RUNNER_TEMP,"hugo-preproc");
     }
     const pathToCLI = await tc.downloadTool(
       download.url,
