@@ -67,8 +67,7 @@ async function getDownloadObject(version) {
 async function setup() {
   try {
     // Get version of tool to be installed
-    // const version = core.getInput("hugo-preproc-version");
-    const version = "latest"
+    const version = core.getInput("hugo-preproc-version");
     core.debug("version: " + version);
 
     // Download the specific version of the tool.
