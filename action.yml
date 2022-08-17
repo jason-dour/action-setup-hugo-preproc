@@ -1,0 +1,17 @@
+name: setup-hugo-preproc
+description: Setup hugo-preproc and add it to the PATH
+author: Jason A. Dour (https://github.com/jason-dour)
+branding:
+  icon: play
+  color: blue
+inputs:
+  hugo-preproc-version:
+    description: The hugo-preproc version to download (if necessary) and use.
+    required: false
+    default: latest
+outputs:
+  hugo-preproc-version:
+    description: The installed hugo-preproc version. Useful when given a version range as input.
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

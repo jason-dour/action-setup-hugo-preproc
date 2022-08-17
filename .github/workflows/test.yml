@@ -1,0 +1,39 @@
+name: Action Tests
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        hugo-preproc-version: [v1.0.0, v1.0.1, v1.1.0]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+
+    - name: Setup hugo-preproc
+      uses: ./
+      with:
+        hugo-preproc-version: ${{ matrix.hugo-preproc-version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Verify hugo-preproc version installed
+      run: |
+        export HUGOPREPROC_VERSION=$( hugo-preproc --version | awk '{print "v" $3}' )
+        if [ $HUGOPREPROC_VERSION != ${{ matrix.hugo-preproc-version }} ]; then
+          echo "error: hugo-preproc version ${{ matrix.hugo-preproc-version }} expected; got $HUGOPREPROC_VERSION"
+          exit 1
+        fi
+        echo "hugo-preproc $HUGOPREPROC_VERSION installed successfully."
