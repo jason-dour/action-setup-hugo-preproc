@@ -13,5 +13,5 @@ outputs:
   hugo-preproc-version:
     description: The installed hugo-preproc version. Useful when given a version range as input.
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
