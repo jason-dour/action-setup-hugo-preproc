@@ -40095,16 +40095,20 @@ async function getDownloadObject(version) {
   core_debug("release: " + release.data.name);
 
   const asset = release.data.assets.find((asset) => {
+    core_debug("asset: " + asset.name);
     let asset_mapped = asset.name.includes(
       `_${mapOS(external_os_namespaceObject.platform())}_${mapArch(external_os_namespaceObject.arch())}`
     )
-    core_debug("asset_mapped: " + asset_mapped);
+    core_debug("asset_mapped: " + asset_mapped.data.name);
     let asset_unmapped = asset.name.includes(
       `_${myPlat}_${myArch}`
     )
-    core_debug("asset_unmapped: " + asset_unmapped);
-    core_debug("returning: " + (asset_mapped || asset_unmapped));
-    return asset_mapped || asset_unmapped
+    core_debug("asset_unmapped: " + asset_unmapped.data.name);
+
+    if (asset_mapped || asset_unmapped) {
+      core_debug("returning: " + asset.name);
+      return asset
+    }
   }
   );
   core_debug("asset: " + JSON.stringify(asset));
