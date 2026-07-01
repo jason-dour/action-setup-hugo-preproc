@@ -82,7 +82,7 @@ async function getDownloadObject(version) {
     core.debug("asset_unmapped: " + asset_unmapped.data.name);
 
     if (asset_mapped || asset_unmapped) {
-      core.debug("returning: " + asset.name);
+      core.debug("returning: " + asset.data.name);
       return asset
     }
   }

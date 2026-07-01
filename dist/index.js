@@ -40106,7 +40106,7 @@ async function getDownloadObject(version) {
     core_debug("asset_unmapped: " + asset_unmapped.data.name);
 
     if (asset_mapped || asset_unmapped) {
-      core_debug("returning: " + asset.name);
+      core_debug("returning: " + asset.data.name);
       return asset
     }
   }
