@@ -12,6 +12,7 @@ const myArch = os.arch();
 
 // Leverage the GitHub Action environment variables to authenticate with GitHub
 const octokit = gh.getOctokit(process.env.GITHUB_TOKEN);
+core.debug("octokit: " + JSON.stringify(octokit));
 
 // getRelease returns the octokit release object for the given version
 async function getRelease(version) {
