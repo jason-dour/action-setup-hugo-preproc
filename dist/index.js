@@ -40032,7 +40032,9 @@ function _unique(values) {
 
 // Grab the OS and Arch.
 const myPlat = external_os_namespaceObject.platform();
+core_debug("myPlat: " + myPlat);
 const myArch = external_os_namespaceObject.arch();
+core_debug("myArch: " + myArch);
 
 // Leverage the GitHub Action environment variables to authenticate with GitHub
 const octokit = getOctokit(process.env.GITHUB_TOKEN);
@@ -40057,6 +40059,7 @@ async function getRelease(version) {
   } catch (e) {
     setFailed(e);
   }
+  core_debug("release: " + JSON.stringify(release));
   return release
 }
 
@@ -40070,7 +40073,7 @@ async function getDownloadObject(version) {
       `_${myPlat}_${myArch}`
     )
   );
-  core_debug("asset: " + asset)
+  core_debug("asset: " + JSON.stringify(asset));
   const url = asset.browser_download_url;
   info("url: " + url);
   return { url };
