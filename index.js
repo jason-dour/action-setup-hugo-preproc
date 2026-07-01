@@ -33,6 +33,7 @@ async function getRelease(version) {
   } catch (e) {
     core.setFailed(e);
   }
+  core.debug("release: " + JSON.stringify(release));
   return release
 }
 
@@ -46,7 +47,7 @@ async function getDownloadObject(version) {
       `_${myPlat}_${myArch}`
     )
   );
-  core.debug("asset: " + asset)
+  core.debug("asset: " + JSON.stringify(asset));
   const url = asset.browser_download_url;
   core.info("url: " + url);
   return { url };
