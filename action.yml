@@ -14,4 +14,4 @@ outputs:
     description: The installed hugo-preproc version. Useful when given a version range as input.
 runs:
   using: 'node24'
-  main: 'dist/index.js'
+  main: 'dist/index.cjs'
