@@ -8,7 +8,9 @@ import * as tc from "@actions/tool-cache";
 
 // Grab the OS and Arch.
 const myPlat = os.platform();
+core.debug("myPlat: " + myPlat);
 const myArch = os.arch();
+core.debug("myArch: " + myArch);
 
 // Leverage the GitHub Action environment variables to authenticate with GitHub
 const octokit = gh.getOctokit(process.env.GITHUB_TOKEN);
