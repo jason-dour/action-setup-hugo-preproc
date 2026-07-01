@@ -16,6 +16,27 @@ core.debug("myArch: " + myArch);
 const octokit = gh.getOctokit(process.env.GITHUB_TOKEN);
 core.debug("octokit: " + JSON.stringify(octokit));
 
+// arch in [arm, x32, x64...] (https://nodejs.org/api/os.html#os_os_arch)
+// return value in [amd64, 386, arm]
+function mapArch(arch) {
+  const mappings = {
+    x32: "386",
+    x64: "amd64",
+  };
+  core.debug("mappedArch: " + (mappings[arch] || arch));
+  return mappings[arch] || arch;
+}
+
+// os in [darwin, linux, win32...] (https://nodejs.org/api/os.html#os_os_platform)
+// return value in [darwin, linux, windows]
+function mapOS(os) {
+  const mappings = {
+    win32: "windows",
+  };
+  core.debug("mappedOS: " + (mappings[os] || os));
+  return mappings[os] || os;
+}
+
 // getRelease returns the octokit release object for the given version
 async function getRelease(version) {
   var release;
@@ -43,13 +64,31 @@ async function getRelease(version) {
 //   url: the url to download the tool from
 async function getDownloadObject(version) {
   const release = await getRelease(version);
+  if (!release || !release.data) {
+    core.setFailed(Error(`No valid release returned for: { version: ${version} }`));
+    return { url: "" };
+  }
   core.debug("release: " + release.data.name);
-  const asset = release.data.assets.find((asset) =>
-    asset.name.includes(
+
+  const asset = release.data.assets.find((asset) => {
+    let asset_mapped = asset.name.includes(
+      `_${mapOS(os.platform())}_${mapArch(os.arch())}`
+    )
+    core.debug("asset_mapped: " + asset_mapped);
+    let asset_unmapped = asset.name.includes(
       `_${myPlat}_${myArch}`
     )
+    core.debug("asset_unmapped: " + asset_unmapped);
+    core.debug("returning: " + (asset_mapped || asset_unmapped));
+    return asset_mapped || asset_unmapped
+  }
   );
   core.debug("asset: " + JSON.stringify(asset));
+  if (!asset) {
+    core.setFailed(Error(`No valid asset found for: { version: ${version}, platform: ${myPlat}, arch: ${myArch} }`));
+    return { url: "" };
+  }
+
   const url = asset.browser_download_url;
   core.info("url: " + url);
   return { url };
