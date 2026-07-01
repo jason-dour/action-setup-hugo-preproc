@@ -40099,14 +40099,14 @@ async function getDownloadObject(version) {
     let asset_mapped = asset.name.includes(
       `_${mapOS(external_os_namespaceObject.platform())}_${mapArch(external_os_namespaceObject.arch())}`
     )
-    core_debug("asset_mapped: " + asset_mapped.data.name);
+    core_debug("asset_mapped: " + asset_mapped);
     let asset_unmapped = asset.name.includes(
       `_${myPlat}_${myArch}`
     )
-    core_debug("asset_unmapped: " + asset_unmapped.data.name);
+    core_debug("asset_unmapped: " + asset_unmapped);
 
     if (asset_mapped || asset_unmapped) {
-      core_debug("returning: " + asset.data.name);
+      core_debug("returning: " + asset.name);
       return asset
     }
   }

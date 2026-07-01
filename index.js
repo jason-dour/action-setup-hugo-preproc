@@ -75,14 +75,14 @@ async function getDownloadObject(version) {
     let asset_mapped = asset.name.includes(
       `_${mapOS(os.platform())}_${mapArch(os.arch())}`
     )
-    core.debug("asset_mapped: " + asset_mapped.data.name);
+    core.debug("asset_mapped: " + asset_mapped);
     let asset_unmapped = asset.name.includes(
       `_${myPlat}_${myArch}`
     )
-    core.debug("asset_unmapped: " + asset_unmapped.data.name);
+    core.debug("asset_unmapped: " + asset_unmapped);
 
     if (asset_mapped || asset_unmapped) {
-      core.debug("returning: " + asset.data.name);
+      core.debug("returning: " + asset.name);
       return asset
     }
   }
