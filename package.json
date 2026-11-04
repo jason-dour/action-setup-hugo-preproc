@@ -39,5 +39,9 @@
     "eslint": "^10.6.0",
     "globals": "^17.7.0",
     "jest": "^30.4.2"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1",
+    "deepmerge": "^4.3.1"
   }
 }
